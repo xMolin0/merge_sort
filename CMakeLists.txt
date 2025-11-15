@@ -3,4 +3,8 @@ project(untitled)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(untitled merge_sort.cpp)
+add_executable(untitled src/merge_sort.cpp
+        tooling/omp_loop.hpp
+        tooling/seq_loop.hpp
+        tooling/omp_tasking.hpp
+        tooling/seq_tasking.hpp)

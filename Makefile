@@ -1,25 +1,20 @@
-# The compiler to use
-CXX = g++
+CXX = g++-15
+CXXFLAGS = -Wall -O2 -std=c++11 -fopenmp
+LDFLAGS = -fopenmp
 
-# Compiler flags:
-# -Wall = show all warnings
-# -O2   = optimize the code
-# -std=c++11 = use C++11 standard
-CXXFLAGS = -Wall -O2 -std=c++11
-
-# Name of the program we want to build
 TARGET = merge_sort
+SRC = src/merge_sort.cpp
+HEADERS = tooling/omp_tasking.hpp
 
-# Source files (you can add more later)
-SRC = merge_sort.cpp
+.PHONY: all clean run
 
-# Default target (what 'make' builds if you just type 'make')
 all: $(TARGET)
 
-# How to build the program from source files
-$(TARGET): $(SRC)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)
+$(TARGET): $(SRC) $(HEADERS)
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)
 
-# 'make clean' removes the program so we can start fresh
 clean:
 	rm -f $(TARGET)
+
+run: $(TARGET)
+	./$(TARGET) 1000000000
