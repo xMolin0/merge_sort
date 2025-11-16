@@ -82,13 +82,14 @@ void mergesort(int * arr, size_t l, size_t r, int* temp) {
 }
 
 int main (int argc, char* argv[]) {
-    if (argc < 2) {
+    if (argc < 3) {
         std::cerr<<"Usage: "<<argv[0]<<" <n>"<<std::endl;
         return -1;
     }
 
     // command line parameter
     size_t n = atol(argv[1]);
+    int threads = atol(argv[2]);
 
     // get arr data
     std::vector<int> arr (n);
@@ -102,7 +103,7 @@ int main (int argc, char* argv[]) {
     // sort
     tasking::doinparallel([&]() {
         mergesort(&(arr[0]), 0, n-1, &(temp[0]));
-    }, 32
+    }, threads
     );
     // end timing
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
